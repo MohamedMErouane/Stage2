@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node-fetch": "^2.6.11",
+    "concurrently": "^8.2.2"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+    "start:frontend": "cd apps/client && npm run dev",
+    "start:backend": "cd apps/api && npm run start:dev"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.0.1",
+    "next-themes": "^0.3.0"
+  }
+}
