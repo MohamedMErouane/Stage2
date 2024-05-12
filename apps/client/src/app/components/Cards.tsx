@@ -51,7 +51,7 @@ function Card({ username }) {
         setTwitter(userData.twitter);
         setInstagram(userData.instagram);
         setLinkedIn(userData.linkedIn);
-        setImage(`http://localhost:3333/user/profile/${username}`); // Set image to null if not provided
+        setImage(`http://localhost:3333/user/profile/${username}`); 
 
       } catch (error) {
         console.error('Error fetching user data:', error);

@@ -28,7 +28,6 @@ model User {
   instagram     String?
   twitter       String?
   linkedIn      String?
-
   todos Todo[]
   studyTime StudyTime[]
   message Message[]
