@@ -38,6 +38,7 @@ const FormSchema = z
     phone: z
       .string()
       .refine(validator.isMobilePhone, "Please enter a valid phone number!"),
+      isAdmin: z.boolean(),
     password: z
       .string()
       .min(6, "Password must be at least 6 characters ")
@@ -78,18 +79,22 @@ const SignupForm = () => {
     setPassStrength(passwordStrength(watch().password).id);
   }, [watch]);
   const toggleVisblePass = () => setIsVisiblePass((prev) => !prev);
-
+  const [isAdmin, setIsAdmin] = useState(false); // State for admin checkbox
   const saveUser: SubmitHandler<InputType> = async (data) => {
-    const { accepted, confirmPassword, ...user } = data;
     try {
-      const result = await registerUser(user);
+      // Omit unwanted properties from user data
+      const { confirmPassword, accepted, ...userData } = data;
+      // Include isAdmin property
+      userData.isAdmin = isAdmin;
+      
+      const result = await registerUser(userData);
       toast.success("The User Registered Successfully.");
     } catch (error) {
       toast.error("Something Went Wrong!");
-      console.error(error);
+      console.error("Failed to register user:", error);
     }
   };
-
+  
 
   return (
     <div className="flex h-screen">
@@ -177,6 +182,15 @@ const SignupForm = () => {
         />
       </div>
       <div>
+      <div>
+              <Checkbox
+                onChange={() => setIsAdmin(!isAdmin)}
+                checked={isAdmin}
+                className="col-span-2 text-black"
+              >
+                Sign up as Admin
+              </Checkbox>
+            </div>
         <Controller
           control={control}
           name="accepted"
@@ -205,32 +219,13 @@ const SignupForm = () => {
     <div className="mt-4 text-center">
       <p><a href="#" className="font-medium text-black hover:underline">Forget password?</a></p>
     </div>
-    <div className="my-4 flex items-center border-t border-gray-300">
-      <p className="mx-4 text-center flex-1">OR</p>
-    </div>
-    <button className="w-full flex items-center justify-center border border-gray-300 rounded-md py-3 font-semibold transition duration-300 hover:bg-gray-100">
-      <img className="w-6 h-6 mr-2" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="Google Logo" />
-      <span className="text-black">Sign Up with Google</span>
-    </button>
+    
   </div>
 </div>
 
 
 
-      <div className="flex-1 relative">
-        {/* Video background */}
-        <video autoPlay muted loop className="object-cover object-center w-full h-full absolute inset-0 z-0">
-          <source src="/background.mp4" type="video/mp4" />
-        </video>
-        {/* Content overlay */}
-        <div className="absolute inset-0 flex flex-col justify-center items-center z-10">
-          {/* Logo and Name */}
-          <div className="text-white text-center mb-8">
-            <IoMdSchool size={80} />
-            <h1 className="text-4xl font-poppins font-semibold"><strong>Study With Me</strong> </h1>
-          </div>
-        </div>
-      </div>
+    
     </div>
   );
 };

@@ -27,6 +27,7 @@ async function refreshToken(token: JWT): Promise<JWT> {
 export const authOptions: AuthOptions = {
   pages: {
     signIn: "/auth/signin",
+   
   },
   session: {
     strategy: "jwt",

@@ -50,22 +50,29 @@ const SignInForm = (props: Props) => {
   });
 
   const onSubmit: SubmitHandler<InputType> = async (data) => {
-    const result = await signIn("credentials", {
-      redirect: false,
-      username: data.email,
-      password: data.password,
-    });
-    
-    if (!result?.ok) {
-      // Check if result.error is a string or an object
-      // const errorMessage = typeof result?.error === 'string' ? result.error : result?.error?.message;
-      const errorMessage = result?.error;
-      toast.error(errorMessage); // Show the error message from the backend
-      return; // Return or do other error handling
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        username: data.email,
+        password: data.password,
+      });
+  
+      console.log(result); // Log the result to see its structure
+  
+      if (result && result.ok) {
+        toast.success("Welcome To Study With Me Website");
+        console.log("Redirecting to /home...");
+        router.push("/home");
+      } else {
+        const errorMessage = result?.error || "An error occurred during sign-in.";
+        toast.error(errorMessage);
+      }
+    } catch (error) {
+      console.error("Error occurred during sign-in:", error);
+      toast.error("An error occurred during sign-in. Please try again later.");
     }
-    toast.success("Welcome To Study With Me Website");
-    router.push(props.callbackUrl ? props.callbackUrl : "/home");
   };
+  
 
   return (
     
