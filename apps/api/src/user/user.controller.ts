@@ -27,6 +27,11 @@ export const storage = {
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Get()
+  async getAllUsers() {
+    return this.userService.findAll();
+  }
+
   @Get(':username') 
   async findByUsername(@Param('username') username: string) {
     console.log(username)

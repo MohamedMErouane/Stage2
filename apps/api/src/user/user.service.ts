@@ -11,6 +11,12 @@ export class UserService {
 
   constructor(private prisma : PrismaService){}
 
+
+async findAll() {
+     return this.prisma.user.findMany({})
+    }
+
+    
   async create(dto: CreateUserDto) {
     const user = await this.prisma.user.findUnique({
       where : {
@@ -67,12 +73,14 @@ export class UserService {
         id
       }
     })
+    
 
     const {password, ...result} = user
     console.log("this from nestjs ")
     console.log(result)
     return result
   }
+  
 
   async findByUsername(username : string) {
     const user =  await this.prisma.user.findUnique({
