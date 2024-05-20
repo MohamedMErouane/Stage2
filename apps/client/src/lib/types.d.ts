@@ -7,12 +7,14 @@ export type User = {
     emailVerified : string;
     username : string;
     phone : string;
+    isAdimn  : boolean;
     image : string;
     about    : string;     
     facebook : string;
     instagram: string;
     twitter  : string;
-    linkedIn : string
+    linkedIn : string;
+   
   };
 
 export type Tokens = {

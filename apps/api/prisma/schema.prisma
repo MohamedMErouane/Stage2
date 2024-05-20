@@ -51,3 +51,9 @@ model Message {
   userId String
   User   User   @relation(fields: [userId], references: [id])
 }
+model Actualite {
+  id        Int      @id @default(autoincrement())
+  title     String
+  createdAt DateTime @default(now())
+  fileUrl   String?
+}

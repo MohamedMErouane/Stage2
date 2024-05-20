@@ -45,10 +45,11 @@ export class UserService {
       data : {
         ...dto,
         password : await hash(dto.password, 10),
+        isAdmin: dto.isAdmin ?? false,
       }
     })
 
-    const {password, ...result} = newUser
+    const {password,isAdmin, ...result} = newUser
     return result
   }
 

@@ -10,7 +10,12 @@
     "start:backend": "cd apps/api && npm run start:dev"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@headlessui/react": "^2.0.1",
+    "@types/formidable": "^3.4.5",
+    "aws-sdk": "^2.1623.0",
+    "formidable": "^3.5.1",
     "next-themes": "^0.3.0"
   }
 }

@@ -14,7 +14,7 @@ export class MessagesService {
     const message = await this.prisma.message.create({
         data: {
             text: createMessageDto.text,
-            user: { connect: { id: user.id } }, // Assuming 'id' is the primary key of the User model
+            User: { connect: { id: user.id } }, // Assuming 'id' is the primary key of the User model
         },
     });
 
@@ -29,7 +29,7 @@ export class MessagesService {
 async findAll() {
   const messages = await this.prisma.message.findMany({
     include: {
-      user: true,
+      User: true,
     },
   });
 
@@ -37,8 +37,8 @@ async findAll() {
   return messages.map(message => ({
     id : message.id,
     text: message.text,
-    name: message.user.username, // Assuming 'username' is the property to retrieve the user's name
-    image : message.user.image
+    name: message.User.username, // Assuming 'username' is the property to retrieve the User's name
+    image : message.User.image
   }));
 }
 

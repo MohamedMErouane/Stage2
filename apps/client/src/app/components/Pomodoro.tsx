@@ -81,22 +81,12 @@ const TimerApp = () => {
   };
 
   return (
-    <div className='flex h-screen bg-white'>
+    <div className='flex  bg-white'>
       <div className="container mx-auto p-2 bg-transparent rounded-md shadow-md text-white font-bold text-sm mt-2">
         <p className="text-center text-black">
           {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}
         </p>
-        {isAdmin && (
-          <div>
-            <input
-              type="text"
-              value={actualite}
-              onChange={(e) => setActualite(e.target.value)}
-              placeholder="Add Actualité"
-            />
-            <button onClick={handleAddActualite}>Add</button>
-          </div>
-        )}
+       
         {isRunning ? (
           <button onClick={pauseTimer} className="mt-2 bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-md">
             <FaPause />
@@ -110,14 +100,7 @@ const TimerApp = () => {
           <FaSyncAlt />
         </button>
       </div>
-      {/* Display example actualités */}
-      <div className="mt-4 ml-2">
-        <h2 className="text-xl font-semibold">Example Actualités:</h2>
-        <div className="flex justify-center mt-2">
-          <img src="/actualites/actualite1.jpg" alt="Actualité 1" className="w-32 h-32 object-cover rounded-md mr-2" />
-          <img src="/actualites/actualite2.jpg" alt="Actualité 2" className="w-32 h-32 object-cover rounded-md" />
-        </div>
-      </div>
+   
     </div>
   );
 };
