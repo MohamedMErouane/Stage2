@@ -7,6 +7,8 @@ import { BACKEND_URL } from '@/lib/Constants';
 import { useSession } from 'next-auth/react';
 import { Link } from 'react-router-dom';
 import Spinner from '../components/Spinner';
+import PopupWidget from '../components/PopupWidget';
+import PopupWidget1 from '../components/PopupWidget1';
 
 interface Message {
   id : number
@@ -140,9 +142,14 @@ const ChatPage = () => {
               Send
             </button>
           </form>
+         
         </div>
       )}
+      <div className='border border-white  '>
+         <PopupWidget1 />
+       </div>
       </div>
+      
     </div>
   );
 };
