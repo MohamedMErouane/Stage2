@@ -10,6 +10,8 @@ import { TodoModule } from './todo/todo.module';
 import { PomodoroModule } from './pomodoro/pomodoro.module';
 import { ConnectedUsersModule } from './connected-users/connected-users.module';
 import { ActualitesModule } from './actualite/actualite.module';
+import { EmployeeStatusModule } from './employee-status/employee-status.module';
+
 
 
 @Module({
@@ -23,6 +25,8 @@ import { ActualitesModule } from './actualite/actualite.module';
     PomodoroModule,
     ConnectedUsersModule,
     ActualitesModule,
+    EmployeeStatusModule,
+   
    
   ],
   controllers: [AppController],

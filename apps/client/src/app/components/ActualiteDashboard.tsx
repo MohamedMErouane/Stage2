@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 import { useSession, signIn } from 'next-auth/react';
 import { BACKEND_URL } from '@/lib/Constants';
 import Pomodoro from "../components/Pomodoro"
+import EmployeeCard from './EmployeeCard';
+import Status from './Status';
 
 // Interface for Actualité data
 interface Actualite {
@@ -22,7 +24,18 @@ const ActualiteDashboard: React.FC = () => {
   const [previewImageUrls, setPreviewImageUrls] = useState<string[]>([]);
   const [newActualiteTitle, setNewActualiteTitle] = useState(''); // State for title
   const [status, setStatus] = useState('');
-  // Fetch actualités on component mount (replace with your API call)
+  const [employees, setEmployees] = useState<Employee[]>([]);
+
+  interface Employee {
+    id: string;
+    firstName: string;
+    lastName: string;
+    status: string;
+    user: {
+      firstName: string;
+      lastName: string;
+    };
+  }
   useEffect(() => {
     fetchActualites();
   }, []);
@@ -106,28 +119,31 @@ const ActualiteDashboard: React.FC = () => {
       alert('Please select files and enter a title for the actualité.');
     }
   };
-  useEffect(() => {
-    if (session) {
-      // Fetch initial employee status
-      fetchEmployeeStatus();
-    }
-  }, [session]);
-
-  const fetchEmployeeStatus = async () => {
+  const fetchEmployees = async () => {
     try {
-      const response = await fetch(`${BACKEND_URL}/employeestatus/${session?.user.id}`);
+      const response = await fetch(`${BACKEND_URL}/employee-status`);
       const data = await response.json();
-      if (data.length > 0) {
-        setStatus(data[0].status);
-      }
+      console.log('Fetched employees:', data); // Log the fetched data
+      console.log('Fetched ',data.user)
+      setEmployees(data);
     } catch (error) {
-      console.error('Error fetching employee status:', error);
+      console.error('Error fetching employees:', error);
     }
   };
+  
+  
+  useEffect(() => {
+    if (session && !session.user.isAdmin) {
+      fetchEmployees();
+    }
+  }, [session]);
+  
+  
 
+  
   const handleStatusUpdate = async (newStatus: string) => {
     try {
-      const response = await fetch(`${BACKEND_URL}/employeestatus/${session?.user.id}`, {
+      const response = await fetch(`${BACKEND_URL}/employee-status/${session?.user.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -203,7 +219,13 @@ const ActualiteDashboard: React.FC = () => {
                     </div>
                   ))}
                 </div>
+                
               )}
+              <div className="container mx-auto px-4 py-8">
+              <Status />
+      
+     
+    </div>
             </>
           ) : (
             <><p className='text-black'>Welcome, {session?.user.firstName}!</p>

@@ -3,12 +3,29 @@ import { hash } from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto, UpdateUserDto } from './dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class UserService {
 
   constructor(private prisma: PrismaService){}
+  async findUserById(id: string): Promise<User> {
+    try {
+      // Fetch user by ID
+      const user = await this.prisma.user.findUnique({
+        where: { id },
+      });
+      
+      if (!user) {
+        throw new NotFoundException(`User with ID ${id} not found`);
+      }
 
+      return user;
+    } catch (error) {
+      console.error('Error fetching user by ID:', error);
+      throw error; // Throw the error to handle it in the controller
+    }
+  }
   async findAll() {
     return this.prisma.user.findMany({});
   }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Put, UseInterceptors, UploadedFile, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Put, UseInterceptors, UploadedFile, Res, NotFoundException } from '@nestjs/common';
 import { UserService } from './user.service';
 
 import { AtGuard } from 'src/auth/guards';
@@ -8,6 +8,7 @@ import {v4 as uuidv4} from 'uuid'
 import { FileInterceptor } from '@nestjs/platform-express';
 import * as path from 'path';
 import { Observable, of } from 'rxjs';
+import { User } from '@prisma/client';
 
 
 export const storage = {
@@ -36,6 +37,17 @@ export class UserController {
   async findByUsername(@Param('username') username: string) {
     console.log(username)
     return this.userService.findByUsername(username);
+  }
+  @Get(':id')
+  async findUserById(@Param('id') id: string): Promise<User> {
+    try {
+      return this.userService.findUserById(id);
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(error.message);
+      }
+      throw error;
+    }
   }
 
   @Post("id")
