@@ -5,13 +5,11 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { PrismaService } from './prisma/prisma.service';
 import { MessagesModule } from './messages/messages.module';
 import { TodoModule } from './todo/todo.module';
 import { PomodoroModule } from './pomodoro/pomodoro.module';
 import { ConnectedUsersModule } from './connected-users/connected-users.module';
 import { ActualitesModule } from './actualite/actualite.module';
-
 
 
 @Module({
@@ -25,10 +23,12 @@ import { ActualitesModule } from './actualite/actualite.module';
     PomodoroModule,
     ConnectedUsersModule,
     ActualitesModule,
+   
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    ],
+   
+  ],
 })
 export class AppModule {}

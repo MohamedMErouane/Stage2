@@ -21,7 +21,7 @@ const ActualiteDashboard: React.FC = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewImageUrls, setPreviewImageUrls] = useState<string[]>([]);
   const [newActualiteTitle, setNewActualiteTitle] = useState(''); // State for title
-
+  const [status, setStatus] = useState('');
   // Fetch actualités on component mount (replace with your API call)
   useEffect(() => {
     fetchActualites();
@@ -106,11 +106,54 @@ const ActualiteDashboard: React.FC = () => {
       alert('Please select files and enter a title for the actualité.');
     }
   };
+  useEffect(() => {
+    if (session) {
+      // Fetch initial employee status
+      fetchEmployeeStatus();
+    }
+  }, [session]);
+
+  const fetchEmployeeStatus = async () => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/employeestatus/${session?.user.id}`);
+      const data = await response.json();
+      if (data.length > 0) {
+        setStatus(data[0].status);
+      }
+    } catch (error) {
+      console.error('Error fetching employee status:', error);
+    }
+  };
+
+  const handleStatusUpdate = async (newStatus: string) => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/employeestatus/${session?.user.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      if (response.ok) {
+        setStatus(newStatus);
+        alert('Status updated successfully');
+      } else {
+        alert('Failed to update status');
+      }
+    } catch (error) {
+      console.error('Error updating employee status:', error);
+      alert('Failed to update status');
+    }
+  };
+
+  if (!session) {
+    return <div>Loading...</div>;
+  }
   
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Actualités Dashboard</h1>
-
+      <h1 className="text-3xl font-bold mb-6 text-black">Actualités Dashboard</h1>
+      
       {session ? (
         <>
           {session.user && session.user.isAdmin ? (
@@ -163,7 +206,22 @@ const ActualiteDashboard: React.FC = () => {
               )}
             </>
           ) : (
-            <p className="text-red-500">You do not have permission to add actualités.</p>
+            <><p className='text-black'>Welcome, {session?.user.firstName}!</p>
+            <p  className='text-black'>Your current status is: {status}</p>
+            <div className="flex mt-4">
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
+                onClick={() => handleStatusUpdate('IN_PROGRESS')}
+              >
+                Mark as In Progress
+              </button>
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                onClick={() => handleStatusUpdate('FREE')}
+              >
+                Mark as Free
+              </button>
+            </div></>
           )}
         </>
       ) : (
@@ -179,7 +237,7 @@ const ActualiteDashboard: React.FC = () => {
         <ul className="list-none mt-8">
           {actualites.map((actualite) => (
             <li key={actualite.id} className="mb-4 bg-white shadow rounded-lg p-6">
-              <h3 className="text-xl font-bold mb-2">{actualite.title}</h3>
+              <h3 className="text-xl text-black font-bold mb-2">{actualite.title}</h3>
               {actualite.fileUrl && (
                 <p className="text-blue-500 underline mb-2">
                   <a href={actualite.fileUrl} target="_blank" rel="noopener noreferrer">
