@@ -1,0 +1,53 @@
+@startuml class
+actor User
+entity "UserService" as UserService
+entity "StudyTimeService" as StudyTimeService
+entity "TodoService" as TodoService
+entity "MessageService" as MessageService
+entity Database
+
+User -> UserService: Register (firstName, lastName, email, password, username, phone)
+activate UserService
+UserService -> Database: Insert User
+activate Database
+Database -> UserService: User Created
+deactivate Database
+UserService -> User: Registration Successful
+deactivate UserService
+
+User -> StudyTimeService: Add StudyTime (date, hours)
+activate StudyTimeService
+StudyTimeService -> Database: Insert StudyTime
+activate Database
+Database -> StudyTimeService: StudyTime Created
+deactivate Database
+StudyTimeService -> User: StudyTime Entry Created
+deactivate StudyTimeService
+
+User -> TodoService: Create Todo (description)
+activate TodoService
+TodoService -> Database: Insert Todo
+activate Database
+Database -> TodoService: Todo Created
+deactivate Database
+TodoService -> User: Todo Entry Created
+deactivate TodoService
+
+User -> MessageService: Send Message (text)
+activate MessageService
+MessageService -> Database: Insert Message
+activate Database
+Database -> MessageService: Message Sent
+deactivate Database
+MessageService -> User: Message Sent Confirmation
+deactivate MessageService
+
+User -> TodoService: Get Todos
+activate TodoService
+TodoService -> Database: Select Todos
+activate Database
+Database -> TodoService: List of Todos
+deactivate Database
+TodoService -> User: List of Todos
+deactivate TodoService
+@enduml

@@ -2,14 +2,13 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import Container from "./container";
-
 export default function Footer() {
   const navigation = [
-    "Product",
-    "Features",
-    "Pricing",
-    "Company",
-    "Blog",
+    "Profile",
+    "Chat",
+    "Dashbord",
+    "State",
+    "leaderboard",
   ];
   const legal = ["Terms", "Privacy", "Legal"];
   return (
@@ -21,13 +20,13 @@ export default function Footer() {
               {" "}
               <Link href="/" className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-indigo-500">
                     <Image
-                      src="/img/logo.svg"
+                      src="/stryvelogo.png"
                       alt="N"
                       width="32"
                       height="32"
                       className="w-8"
                     />
-                  <span>Nextly</span>
+                  <span>Stryve Tracking</span>
               </Link>
             </div>
 
@@ -35,20 +34,7 @@ export default function Footer() {
               Stryve is a web site that will help you to track your employees.
             </div>
 
-            <div className="mt-5">
-              <a
-                href="https://vercel.com/?utm_source=web3templates&utm_campaign=oss"
-                target="_blank"
-                rel="noopener"
-                className="relative block w-44">
-                <Image
-                  src="/img/vercel.svg"
-                  alt="Powered by Vercel"
-                  width="212"
-                  height="44"
-                />
-              </a>
-            </div>
+           
           </div>
 
           <div>

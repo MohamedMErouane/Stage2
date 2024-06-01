@@ -6,7 +6,7 @@ import PomodoroApp from './Pomodoro';
 import Video from './Video';
 import { FaPhoneSlash } from 'react-icons/fa';
 import Image from 'next/image'; // Import Image component from Next.js
-import BackgroundImage from '../../public/th8.jpg'; // Import the background image
+import BackgroundImage from '../../../public/th8.jpg'; 
 import { ConnectedUser } from '@/lib/types';
 import { BACKEND_URL } from '@/lib/Constants';
 import io from 'socket.io-client';

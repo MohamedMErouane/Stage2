@@ -102,7 +102,7 @@ const TodoList = () => {
           <select
             value={selectedUser}
             onChange={(e) => setSelectedUser(e.target.value)}
-            className="p-2 border rounded-md mb-4"
+            className="p-2 border rounded-md mb-4 text-black"
           >
             <option value="">Select user</option>
             {users.map((user) => (

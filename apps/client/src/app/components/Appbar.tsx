@@ -6,11 +6,11 @@ import { Disclosure } from "@headlessui/react";
 
 const Appbar = () => {
   const navigation = [
-    "Product",
-    "Features",
-    "Pricing",
-    "Company",
-    "Blog",
+    "Profile",
+    "Chat",
+    "Dashbord",
+    "State",
+    "Leaderboard",
   ];
 
   return (
@@ -25,7 +25,7 @@ const Appbar = () => {
                   <span className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-blue">
                     <span>
                       <Image
-                        src="/public/logo.png"
+                        src="/Stryvelogo.png"
                         alt="N"
                         width="32"
                         height="32"
@@ -94,7 +94,7 @@ const Appbar = () => {
               Get Started
           </Link>
 
-          <ThemeChanger />
+         
         </div>
       </nav>
     </div>

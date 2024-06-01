@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useSession, signIn } from 'next-auth/react';
 import { BACKEND_URL } from '@/lib/Constants';
 import Pomodoro from "../components/Pomodoro"
+
 // Interface for Actualité data
 interface Actualite {
   id: number;
@@ -53,47 +54,59 @@ const ActualiteDashboard: React.FC = () => {
   const handleUpload = async () => {
     if (selectedFiles.length > 0 && newActualiteTitle.trim() !== '') {
       const uploadedActualites: Actualite[] = [];
-
+  
       for (const file of selectedFiles) {
         const formData = new FormData();
-        formData.append('fileUrl', file);
         formData.append('title', newActualiteTitle); 
-
-        const response = await fetch(`${BACKEND_URL}/actualite/actualite`, {
+  
+        // Télécharger le fichier sur le serveur
+        const uploadResponse = await fetch(`${BACKEND_URL}/actualite/actualite`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
+          body: file,
         });
-
-        if (response.ok) {
-          const uploadedFileUrl = await response.json(); 
-          const newActualite: Actualite = {
-            id: new Date().getTime(), 
-            title: newActualiteTitle, 
-            createdAt: new Date(),
-            fileUrl: uploadedFileUrl.fileUrl, 
-          };
-          uploadedActualites.push(newActualite);
+  
+        if (uploadResponse.ok) {
+          const uploadedFileData = await uploadResponse.json();
+          const fileUrl = uploadedFileData.fileUrl;
+  
+          // Ajouter l'URL du fichier à FormData
+          formData.append('fileUrl', fileUrl); 
+  
+          // Envoyer FormData avec titre et URL de fichier au serveur
+          const response = await fetch(`${BACKEND_URL}/actualite/actualite`, {
+            method: 'POST',
+            body: formData,
+          });
+  
+          if (response.ok) {
+            const uploadedFileUrl = await response.json(); 
+            const newActualite: Actualite = {
+              id: new Date().getTime(), 
+              title: newActualiteTitle, 
+              createdAt: new Date(),
+              fileUrl: uploadedFileUrl.fileUrl, 
+            };
+            uploadedActualites.push(newActualite);
+          } else {
+            alert(`Failed to upload file: ${file.name}`);
+          }
         } else {
-          alert(`Failed to upload file: ${file.name}`);
+          alert(`Failed to upload file1: ${file.name}`);
         }
       }
-
+  
       // Update the actualités list
       setActualites((prevActualites) => [...prevActualites, ...uploadedActualites]);
       // Clear selected files, previews, and title
       setSelectedFiles([]);
       setPreviewImageUrls([]);
       setNewActualiteTitle('');
-      // Refetch actualités to ensure all users see the updated list
       fetchActualites();
     } else {
       alert('Please select files and enter a title for the actualité.');
     }
   };
-
+  
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Actualités Dashboard</h1>
@@ -114,14 +127,17 @@ const ActualiteDashboard: React.FC = () => {
                   value={newActualiteTitle}
                   onChange={(e) => setNewActualiteTitle(e.target.value)}
                 />
-                <input
-                  type="file"
-                  id="fileInput"
-                  accept=".jpg,.jpeg,.png"
-                  multiple
-                  onChange={handleFileChange}
-                  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                />
+                <label htmlFor="fileInput" className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none p-2.5 text-center">
+                  Select Files
+                  <input
+                    type="file"
+                    id="fileInput"
+                    accept=".jpg,.jpeg,.png"
+                    multiple
+                    onChange={handleFileChange}
+                    className="hidden"
+                  />
+                </label>
               </div>
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

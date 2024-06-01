@@ -13,6 +13,7 @@ import { ConnectedUsersModule } from './connected-users/connected-users.module';
 import { ActualitesModule } from './actualite/actualite.module';
 
 
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -27,6 +28,7 @@ import { ActualitesModule } from './actualite/actualite.module';
   ],
   controllers: [AppController],
   providers: [
-    AppService],
+    AppService,
+    ],
 })
 export class AppModule {}

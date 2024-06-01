@@ -64,12 +64,10 @@ export default function Home() {
       <div className='bg-white'>
       <SectionTitle
         align="center" // Adjust the alignment as needed
-        pretitle="Nextly Benefits"
+        pretitle="Stryve tracking Benefits"
         title=" Tracking time for thousands of users can be hard.
         we makes it easy.">
-        Nextly is a free landing page & marketing website template for startups
-        and indie projects. Its built with Next.js & TailwindCSS. And its
-        completely open-source.
+        Tracking time for thousands of users can be hard. We make it easy with our intuitive, efficient system designed for seamless time management.
       </SectionTitle>
       <Benefits data={data} />
       <Benefits imgPos="right" data={data1} />
@@ -82,8 +80,7 @@ export default function Home() {
       </SectionTitle>
       <Testimonials />
       <SectionTitle pretitle="FAQ" title="Frequently Asked Questions">
-        Answer your customers possible questions here, it will increase the
-        conversion rate as well as support or chat requests.
+        if you have any Questions you will find an answer here.
       </SectionTitle>
       <Faq />
       <Cta />

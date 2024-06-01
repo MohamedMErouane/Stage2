@@ -13,42 +13,41 @@ const Testimonials  = () => {
         <div className="lg:col-span-2 xl:col-auto">
           <div className="flex flex-col justify-between w-full h-full bg-gray-100 px-14 rounded-2xl py-14 dark:bg-trueGray-800">
             <p className="text-2xl leading-normal text-black ">
-              Share a real <Mark>testimonial</Mark>
-              that hits some of your benefits from one of your popular customer.
+            Tracking time for my entire team used to be a nightmare. This system<Mark>has simplified</Mark>
+            everything, saving us hours each week.
             </p>
 
             <Avatar
               image={userOneImg}
-              name="Sarah Steiner"
-              title="VP Sales at Google"
+              name="Amine"
+              title="Manager of Stryve"
             />
           </div>
         </div>
         <div className="">
           <div className="flex flex-col justify-between w-full h-full bg-gray-100 px-14 rounded-2xl py-14 dark:bg-trueGray-800">
             <p className="text-2xl leading-normal text-black ">
-              Make sure you only pick the <Mark>right sentence</Mark>
-              to keep it short and simple.
+            This tool is a game-changer. It's incredibly user-friendly and has made our time tracking <Mark>more accurate</Mark>
+            and efficient.
             </p>
 
             <Avatar
               image={userTwoImg}
-              name="Dylan Ambrose"
-              title="Lead marketer at Netflix"
+              name="Abdalah Nait ouahman"
+              title="Lead marketer "
             />
           </div>
         </div>
         <div className="">
           <div className="flex flex-col justify-between w-full h-full bg-gray-100 px-14 rounded-2xl py-14 dark:bg-trueGray-800">
             <p className="text-2xl leading-normal text-black ">
-              This is an <Mark>awesome</Mark> landing page template I&apos;ve seen. I
-              would use this for anything.
+            We've tried several time tracking solutions, but nothing <Mark> compares to this system's</Mark> ease of use and reliability. 
             </p>
 
             <Avatar
               image={userThreeImg}
-              name="Gabrielle Winn"
-              title="Co-founder of Acme Inc"
+              name="Mellouki Rida"
+              title="leader of devlopeur"
             />
           </div>
         </div>

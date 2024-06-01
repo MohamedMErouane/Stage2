@@ -35,22 +35,22 @@ const Faq = () => {
 
 const faqdata = [
   {
-    question: "Is this template completely free to use?",
-    answer: "Yes, this template is completely free to use.",
+    question: " How easy is it to set up the time tracking system?",
+    answer: " Setting up our time tracking system is straightforward and quick. Most users can get it up and running within minutes, thanks to our user-friendly interface and comprehensive setup guide",
   },
   {
-    question: "Can I use it in a commercial project?",
-    answer: "Yes, this you can.",
+    question: "Can the system handle a large number of users?",
+    answer: "Yes, our system is designed to efficiently manage time tracking for thousands of users, ensuring scalability for businesses of all sizes.",
   },
   {
-    question: "What is your refund policy? ",
+    question: "Is there a mobile app available? ",
     answer:
-      "If you're unhappy with your purchase for any reason, email us within 90 days and we'll refund you in full, no questions asked.",
+      "it will be son as possible.",
   },
   {
-    question: "Do you offer technical support? ",
+    question: "How does the system ensure the accuracy of time tracking? ",
     answer:
-      "No, we don't offer technical support for free downloads. Please purchase a support plan to get 6 months of support.",
+      "Our system features automated tracking, real-time updates, and integration with various project management tools to ensure accurate and reliable time tracking.",
   },
 ];
 

@@ -8,13 +8,13 @@ datasource db {
 }
 
 model User {
-  id            String      @id @default(uuid())
+ id     String      @id @default(uuid())
   firstName     String
   lastName      String
   password      String
-  email         String      @unique
+  email         String       @unique
   emailVerified DateTime?
-  username      String      @unique
+  username      String       @unique
   phone         String
   image         String?
   about         String?
@@ -22,11 +22,13 @@ model User {
   instagram     String?
   twitter       String?
   linkedIn      String?
-  isAdmin       Boolean     @default(false)
+  isAdmin       Boolean      @default(false)
   Messages      Message[]
   StudyTimes    StudyTime[]
   Todos         Todo[]
+  EmployeeStatus EmployeeStatus[]
 }
+
 
 model StudyTime {
   id     Int      @id @default(autoincrement())
@@ -56,4 +58,18 @@ model Actualite {
   title     String
   createdAt DateTime @default(now())
   fileUrl   String?
+}
+
+model EmployeeStatus {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  status    Status   @default(FREE)
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+enum Status {
+  IN_PROGRESS
+  FREE
 }

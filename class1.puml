@@ -1,0 +1,62 @@
+@startuml
+
+class User {
+    id: String
+    firstName: String
+    lastName: String
+    password: String
+    email: String
+    emailVerified: DateTime
+    username: String
+    phone: String
+    image: String
+    about: String
+    facebook: String
+    instagram: String
+    twitter: String
+    linkedIn: String
+    isAdmin: Boolean
+    Messages: Message[]
+    StudyTimes: StudyTime[]
+    Todos: Todo[]
+}
+
+class StudyTime {
+    id: Int
+    userId: String
+    date: DateTime
+    hours: Float
+    User: User
+}
+
+class Todo {
+    id: String
+    description: String
+    completed: Boolean
+    createdAt: DateTime
+    userId: String
+    User: User
+}
+
+class Message {
+    id: Int
+    text: String
+    userId: String
+    User: User
+}
+
+class Actualite {
+    id: Int
+    title: String
+    createdAt: DateTime
+    fileUrl: String
+}
+
+User "1" -- "0..*" StudyTime: StudyTimes
+User "1" -- "0..*" Todo: Todos
+User "1" -- "0..*" Message: Messages
+StudyTime "0..*" -- "1" User: User
+Todo "0..*" -- "1" User: User
+Message "0..*" -- "1" User: User
+
+@enduml

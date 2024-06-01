@@ -83,10 +83,7 @@ export class AuthService {
       throw new UnauthorizedException("Email or password is not correct");
     }
   
-    if (!user.emailVerified) {
-      throw new UnauthorizedException("Please verify your email first!");
-    }
-  
+    
     if (!(await compare(dto.password, user.password))) {
       throw new UnauthorizedException("Email or password is not correct");
     }

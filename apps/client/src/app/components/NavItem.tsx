@@ -10,13 +10,13 @@ interface NavItemProps {
 const NavItem: React.FC<NavItemProps> = ({ icon, label, href }) => {
   const renderLink = href ? (
     <Link href={href} passHref>
-      <div className="flex items-center py-2 px-4 text-gray-400 hover:text-white cursor-pointer">
+      <div className="flex items-center py-2 px-4 text-white hover:text-white cursor-pointer">
         {icon}
         <span className="ml-2">{label}</span>
       </div>
     </Link>
   ) : (
-    <div className="flex items-center py-2 px-4 text-gray-400 hover:text-white cursor-pointer">
+    <div className="flex items-center py-2 px-4 text-white hover:text-white cursor-pointer">
       {icon}
       <span className="ml-2">{label}</span>
     </div>
